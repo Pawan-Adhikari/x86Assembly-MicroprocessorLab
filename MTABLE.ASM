@@ -1,9 +1,10 @@
 PAGE 60, 132
-TITLE ADD255 Add numbers from 0 to 255
+TITLE CMP2TBLS Compare 2 tables, if first is smaller, put 1fff else put 0000 in third
 ;--------------------------------------
 DATASEG SEGMENT PARA 'Data'
-NUM DB 255
-SUM DW 0000h
+TBL1 DW 10 DUP(1000)
+TBL2 DW 10 DUP(2000)
+TBL3 DW 10 DUP(0)
 DATASEG ENDS
 ;--------------------------------------
 CODESEG SEGMENT PARA 'Code'
@@ -12,11 +13,16 @@ MAIN PROC FAR
     MOV AX, DATASEG
     MOV DS, AX
 
+    XOR BX, BX
     ADDLOOP:
-    MOV AL, NUM
-    XOR AH, AH
-    ADD SUM, AX
-    DEC NUM
+    MOV CX, TBL1[BX]
+    CMP CX, TBL2[BX]
+    JNC SKIP
+    MOV TBL3[BX], 1FFFh
+    
+    SKIP:
+    ADD BX, 2
+    CMP BX, 20
     JNZ ADDLOOP
 
     MOV AH, 4CH
