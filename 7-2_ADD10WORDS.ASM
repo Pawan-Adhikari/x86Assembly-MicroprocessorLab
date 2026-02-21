@@ -3,7 +3,7 @@ TITLE ADD10WORDS Add 10 16-bit numbers from memory and store the result
 ;--------------------------------------
 DATASEG SEGMENT PARA 'Data'
 NUMS DW 10 DUP(65535)
-SUMH DW 0
+SUMH DW 3000
 SUML DW 0
 DATASEG ENDS
 ;--------------------------------------
